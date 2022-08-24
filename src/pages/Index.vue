@@ -96,7 +96,7 @@
 
 
 
-              <g-link to="/offertasuper_wordpress/categoria-prodotto/shop" class="button-pieno">Clicca e scopri</g-link>
+              <g-link to="/categoria-prodotto/shop" class="button-pieno">Clicca e scopri</g-link>
 
             </div>
 
@@ -128,7 +128,7 @@
                     transform="translate(0 0)" fill="#f9b666" />
                 </svg> <span>Guide per l'utilizzo</span></p>
 
-              <g-link to="/offertasuper_wordpress/category/blog/" class="button-pieno">Clicca e scopri</g-link>
+              <g-link to="/category/blog/" class="button-pieno">Clicca e scopri</g-link>
 
             </div>
           </div>
@@ -162,7 +162,7 @@
               </div>
             </g-link>
 
-            <g-link to="/offertasuper_wordpress/categoria-prodotto/shop" class="link-no-deco">
+            <g-link to="/categoria-prodotto/shop" class="link-no-deco">
               <div class="item-box">
                 <p class="promo">Demo</p>
                 <div class="flex-homeland">
@@ -175,7 +175,7 @@
               </div>
             </g-link>
 
-            <g-link to="/offertasuper_wordpress/category/blog/" class="link-no-deco">
+            <g-link to="/category/blog/" class="link-no-deco">
               <div class="item-box">
                 <p class="promo">News</p>
                 <div class="flex-homeland">
@@ -434,7 +434,7 @@
 
 query  {
 
-  products(first: 8) {
+  products(first: 6) {
     edges {
       node {
         name

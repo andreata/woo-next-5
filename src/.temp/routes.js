@@ -3,72 +3,71 @@ const c2 = () => import(/* webpackChunkName: "page--src--templates--word-press-p
 const c3 = () => import(/* webpackChunkName: "page--src--templates--word-press-category-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/templates/WordPressCategory.vue")
 const c4 = () => import(/* webpackChunkName: "page--src--templates--word-press-post-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/templates/WordPressPost.vue")
 const c5 = () => import(/* webpackChunkName: "page--src--templates--word-press-product-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/templates/WordPressProduct.vue")
-const c6 = () => import(/* webpackChunkName: "page--src--templates--word-press-page-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/templates/WordPressPage.vue")
-const c7 = () => import(/* webpackChunkName: "page--src--pages--home-landing-one-step-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/pages/homeLandingOneStep.vue")
-const c8 = () => import(/* webpackChunkName: "page--src--pages--home-landing-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/pages/homeLanding.vue")
-const c9 = () => import(/* webpackChunkName: "page--src--pages--chi-siamo-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/pages/ChiSiamo.vue")
-const c10 = () => import(/* webpackChunkName: "page--node-modules--gridsome--app--pages--404-vue" */ "/Applications/MAMP/htdocs/woo-next-5/node_modules/gridsome/app/pages/404.vue")
-const c11 = () => import(/* webpackChunkName: "page--src--pages--index-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/pages/Index.vue")
+const c6 = () => import(/* webpackChunkName: "page--src--pages--home-landing-one-step-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/pages/homeLandingOneStep.vue")
+const c7 = () => import(/* webpackChunkName: "page--src--pages--home-landing-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/pages/homeLanding.vue")
+const c8 = () => import(/* webpackChunkName: "page--src--pages--chi-siamo-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/pages/ChiSiamo.vue")
+const c9 = () => import(/* webpackChunkName: "page--node-modules--gridsome--app--pages--404-vue" */ "/Applications/MAMP/htdocs/woo-next-5/node_modules/gridsome/app/pages/404.vue")
+const c10 = () => import(/* webpackChunkName: "page--src--pages--index-vue" */ "/Applications/MAMP/htdocs/woo-next-5/src/pages/Index.vue")
 
 export default [
   {
-    path: "/offertasuper_wordpress/categoria-prodotto/clothing/tshirts/",
+    path: "/categoria-prodotto/clothing/tshirts/",
     component: c1
   },
   {
-    path: "/offertasuper_wordpress/categoria-prodotto/clothing/hoodies/",
+    path: "/categoria-prodotto/clothing/hoodies/",
     component: c1
   },
   {
-    path: "/offertasuper_wordpress/categoria-prodotto/clothing/accessories/",
+    path: "/categoria-prodotto/clothing/accessories/",
     component: c1
   },
   {
-    path: "/offertasuper_wordpress/tag/telefonia/",
+    path: "/tag/telefonia/",
     component: c2
   },
   {
-    path: "/offertasuper_wordpress/tag/mondo/",
+    path: "/tag/mondo/",
     component: c2
   },
   {
-    path: "/offertasuper_wordpress/tag/fibra/",
+    path: "/tag/fibra/",
     component: c2
   },
   {
-    path: "/offertasuper_wordpress/categoria-prodotto/senza-categoria/",
+    path: "/categoria-prodotto/senza-categoria/",
     component: c1
   },
   {
-    path: "/offertasuper_wordpress/categoria-prodotto/shop/",
+    path: "/categoria-prodotto/shop/",
     component: c1
   },
   {
-    path: "/offertasuper_wordpress/category/senza-categoria/",
+    path: "/category/senza-categoria/",
     component: c3
   },
   {
-    path: "/offertasuper_wordpress/tag/adsl/",
+    path: "/tag/adsl/",
     component: c2
   },
   {
-    path: "/offertasuper_wordpress/categoria-prodotto/music/",
+    path: "/categoria-prodotto/music/",
     component: c1
   },
   {
-    path: "/offertasuper_wordpress/categoria-prodotto/decor/",
+    path: "/categoria-prodotto/decor/",
     component: c1
   },
   {
-    path: "/offertasuper_wordpress/category/consigli-per-risparmiare/",
+    path: "/category/consigli-per-risparmiare/",
     component: c3
   },
   {
-    path: "/offertasuper_wordpress/categoria-prodotto/clothing/",
+    path: "/categoria-prodotto/clothing/",
     component: c1
   },
   {
-    path: "/offertasuper_wordpress/category/blog/",
+    path: "/category/blog/",
     component: c3
   },
   {
@@ -108,10 +107,6 @@ export default [
     component: c5
   },
   {
-    path: "/pagamento/",
-    component: c6
-  },
-  {
     path: "/polo/",
     component: c5
   },
@@ -120,20 +115,12 @@ export default [
     component: c5
   },
   {
-    path: "/mio-account/",
-    component: c6
-  },
-  {
-    path: "/negozio/",
-    component: c6
-  },
-  {
     path: "/logo-collection/",
     component: c5
   },
   {
     path: "/home-landing-one-step/",
-    component: c7
+    component: c6
   },
   {
     path: "/hoodie-with-logo/",
@@ -149,7 +136,7 @@ export default [
   },
   {
     path: "/home-landing/",
-    component: c8
+    component: c7
   },
   {
     path: "/hoodie/",
@@ -161,7 +148,7 @@ export default [
   },
   {
     path: "/chi-siamo/",
-    component: c9
+    component: c8
   },
   {
     path: "/ciao-mondo/",
@@ -170,10 +157,6 @@ export default [
   {
     path: "/cap/",
     component: c5
-  },
-  {
-    path: "/carrello/",
-    component: c6
   },
   {
     path: "/beanie/",
@@ -190,16 +173,16 @@ export default [
   {
     name: "404",
     path: "/404/",
-    component: c10
+    component: c9
   },
   {
     name: "home",
     path: "/",
-    component: c11
+    component: c10
   },
   {
     name: "*",
     path: "*",
-    component: c10
+    component: c9
   }
 ]

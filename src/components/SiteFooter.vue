@@ -40,22 +40,22 @@
           <div>
             <p>Link Utili</p>
             <p><g-link to="/home-landing">Richiedi Informazioni</g-link></p>
-            <p><g-link to="/offertasuper_wordpress/categoria-prodotto/shop">Demo Shop</g-link></p>
-            <p><g-link to="/offertasuper_wordpress/category/blog/">Blog</g-link></p>
+            <p><g-link to="/categoria-prodotto/shop">Demo Shop</g-link></p>
+            <p><g-link to="/category/blog/">Blog</g-link></p>
           </div>
 
           <div>
             <p>Link Utili</p>
             <p><g-link to="/home-landing">Richiedi Informazioni</g-link></p>
-            <p><g-link to="/offertasuper_wordpress/categoria-prodotto/shop">Demo Shop</g-link></p>
-            <p><g-link to="/offertasuper_wordpress/category/blog/">Blog</g-link></p>
+            <p><g-link to="/categoria-prodotto/shop">Demo Shop</g-link></p>
+            <p><g-link to="/category/blog/">Blog</g-link></p>
           </div>
 
           <div>
             <p>Link Utili</p>
             <p><g-link to="/home-landing">Richiedi Informazioni</g-link></p>
-            <p><g-link to="/offertasuper_wordpress/categoria-prodotto/shop">Demo Shop</g-link></p>
-            <p><g-link to="/offertasuper_wordpress/category/blog/">Blog</g-link></p>
+            <p><g-link to="/categoria-prodotto/shop">Demo Shop</g-link></p>
+            <p><g-link to="/category/blog/">Blog</g-link></p>
           </div>
 
           <div>

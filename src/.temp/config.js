@@ -1,7 +1,7 @@
 export default {
   "trailingSlash": true,
-  "pathPrefix": "/offertaSuper",
-  "titleTemplate": "%s - Offerta Super",
+  "pathPrefix": "/woo-next-5",
+  "titleTemplate": "%s - Lume di Luna",
   "siteUrl": "https://andreata.github.io",
   "version": "0.7.23",
   "catchLinks": true

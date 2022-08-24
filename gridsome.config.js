@@ -1,12 +1,12 @@
 module.exports = {
-  siteName: 'Offerta Super',
-  siteDescription: '',
+  siteName: 'Lume di Luna',
+  siteDescription: 'eCommerce Jamstack',
   icon: {
-    favicon: './src/assets/images/icon/favicon-offerta-super.png',
-    touchicon: './src/assets/images/icon/favicon-offerta-super.png'
+    favicon: './src/assets/images/icon/favicon.svg',
+    touchicon: './src/assets/images/icon/favicon.svg'
   },
   siteUrl: 'https://andreata.github.io',
-  pathPrefix: '/offertaSuper',
+  pathPrefix: '/woo-next-5',
   /*  templates: {
     Product: "/products/:id",
   },  */
@@ -15,7 +15,7 @@ module.exports = {
     {
       use: 'gridsome-source-graphql',
       options: {
-        url: 'http://localhost:8888/offertasuper_wordpress/graphql',
+        url: 'https://andreat143.sg-host.com/graphql',
         fieldName: 'wp',
         typeName: 'WordPress',   
         headers: {
