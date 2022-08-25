@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
 
-    <vue-cookie-accept-decline :ref="'myPanel1'" :elementId="'myPanel1'" :debug="false" :position="'bottom-left'"
+  <!--   <vue-cookie-accept-decline :ref="'myPanel1'" :elementId="'myPanel1'" :debug="false" :position="'bottom-left'"
       :type="'floating'" :disableDecline="false" :transitionName="'slideFromBottom'" :showPostponeButton="false"
       @status="cookieStatus" @clicked-accept="cookieClickedAccept" @clicked-decline="cookieClickedDecline">
 
@@ -21,7 +21,7 @@
       <div slot="acceptContent">
         Ok, acconsento!
       </div>
-    </vue-cookie-accept-decline>
+    </vue-cookie-accept-decline> -->
 
     <header class="header">
       <div class="header-box">

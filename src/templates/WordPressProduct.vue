@@ -436,9 +436,7 @@ margin-bottom: 0;
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 10px;
     }
-    .VueCarousel-inner {
-        flex-basis: 100% !important;
-    }
+  
 }
 </style>
 

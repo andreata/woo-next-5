@@ -92,7 +92,7 @@
               <g-image class="img-promo" src="~/assets/images/icon/icon3.svg" alt="" width="100" />
               <h2 class="h2-promo">Prova l'eCommerce</h2>
               <h3 class="h3-promo">Naviga e scopri la differenza</h3>
-              <p class="p-promo-standard"> <span>Selezionate da Offerta Super in esclusiva per te!</span></p>
+              <p class="p-promo-standard"> <span>Naviga l'area Shop dell'eCommerce per comprendere l'esperienza di acquisto. In due semplici click porta il cliente ad effettuare il pagamento. </span></p>
 
 
 
@@ -523,31 +523,31 @@ export default {
  
    metaInfo () {
     return {
-      title: 'Offerta Super | Selezioniamo le migliori offerte per te',
+      title: 'Lume di Luna | eCommerce Jamstack',
       meta: [ 
       {
-          description: 'Offerta Super è un selezionatore online, in grado di selezionare le migliori offerte per te',
-        key: 'Offerta Super',
+          description: 'Il primo template per eCommerce basato su WooCommerce, Vue JS con tecnologia Jamstack',
+        key: 'Lume di Luna',
       },
       {
         key: 'og:title',
         name: 'og:title',
-        content: 'Offerta Super',
+        content: 'Lume di Luna',
       },
       {
         key: 'twitter:title',
         name: 'twitter:title',
-        content: 'Offerta Super',
+        content: 'Lume di Luna',
       },
       {
         key: 'og:description',
         name: 'og:description',
-        content: 'Offerta Super',
+        content: 'Lume di Luna',
       },
       {
         key: 'twitter:description',
         name: 'twitter:description',
-        content: 'Offerta Super',
+        content: 'Lume di Luna',
       },
       {
         key: 'og:image',

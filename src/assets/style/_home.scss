@@ -1,4 +1,5 @@
 
+body[data-theme="light"] {
 .bg-home {
     background-image: url('../images/icon/bg-home.svg');
     background-size: cover;
@@ -32,6 +33,7 @@
             background-image: url('../images/icon/base-mobile.svg');
         }
     
+}
 }
 
 .container-image-bg {
@@ -153,11 +155,15 @@
     }
 }
 
-
+body[data-theme="light"] {
+    .bg-cielo {
+            background-image: url('../images/icon/bg-cielo.svg');
+            background-size: cover;
+            background-position: right;
+    }
+}
 .bg-cielo {
-    background-image: url('../images/icon/bg-cielo.svg');
-    background-size: cover;
-    background-position: right;
+ 
     padding-top: 70px;
     .carousel {
         margin-top: 80px;

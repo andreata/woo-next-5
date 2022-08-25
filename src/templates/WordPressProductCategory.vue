@@ -12,12 +12,35 @@
             </ul>
         </div>
 
+  <!--       
+        <select v-model="filter['category']">
+        
+            <option value="shop" selected="selected">Shop</option>
+            <option value="accessories">Accessories</option>
+        </select> -->
+
+    
+
         <div class="post-title">
             <h1>{{ $page.productCategory.name }} </h1>
         </div>
 
+        <h3>Filtra per prezzo</h3>
+    <div data-role="rangeslider" class="rangeslider">
+        <div>
+            <label for="price-min">Minimo: {{filter['min_price']}} €</label>
+            <input type="range" name="price-min" id="price-min" min="0" max="100"  v-model="filter['min_price']">
+        </div>
+
+        <div>
+            <label for="price-max">Massimo: {{filter['max_price']}} €</label>
+            <input type="range" name="price-max" id="price-max"  min="0" max="100" v-model="filter['max_price']">
+        </div>
+      </div>
+        <h3 v-if="!productsFiltered.length">Nessun risultato.</h3>
         <div class="content-category">
-             <PostCardProductCategory :post="edge.node" v-for="(edge, index) in $page.productCategory.products.edges" :key="edge.node.id"
+            
+             <PostCardProductCategory :post="edge.node" v-for="(edge, index) in productsFiltered" :key="edge.node.id"
           v-if="index >= 1" />
         </div>
           
@@ -67,7 +90,7 @@ query Categoryprod ($slug: ID!) {
             mediaItemUrl
         }
     }
-    products(first: 10) {
+    products(first: 50) {
       edges {
         node {
           id
@@ -122,8 +145,28 @@ export default {
     
     return {
       limitationList:15,
+      filter:{
+          min_price: 0,
+          max_price: 100,
+      },
+      
     }
   },
+  computed: {
+      
+      productsFiltered() {
+
+          return this.$page.productCategory.products.edges.filter(item => {  
+
+              
+              
+              //return (item.node.productCategories.nodes.filter(cat => cat.slug == this.filter['category']).length > 0)
+              return (Number(item.node.price) >= this.filter['min_price'] && Number(item.node.price) <= this.filter['max_price'])
+           
+          })
+      }
+  }
+
 }
 </script>
 
@@ -143,7 +186,57 @@ ul.block-ul {
   max-width: 150px;
 }
 
+.rangeslider {
+    margin-bottom: 20px;
+    >div {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        max-width: 400px;
+            align-items: center;
+    }
+}
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type='range'] {
+    border-radius: 30px;
+      height: 5px;
+      -webkit-appearance: none;
+      background-color: var(--orang-color); 
+    }
+    
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 5px;
+      -webkit-appearance: none;
+      color: var(--orang-color); 
+    
+    }
+    
+    input[type='range']::-webkit-slider-thumb {
+      width: 12px;
+      -webkit-appearance: none;
+      height: 12px;
+      border-radius: 50%;
+      margin-top: -3px;
+      cursor: ew-resize;
+      background: black; 
+      
+    }
+
+}
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: var(--orang-color); 
+}
+input[type="range"]::-moz-range-track {  
+  background-color:var(--orang-color); 
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color:var(--orang-color); 
+}
+input[type="range"]::-ms-fill-upper {  
+  background-color: var(--orang-color); 
+}
 .breadcrumbs {
     margin-top: 20px;
 }

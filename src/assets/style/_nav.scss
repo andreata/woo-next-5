@@ -7,7 +7,19 @@
   width: 100%;
   z-index: 3;
   top: 0;
-  background-color: white;
+
+}
+
+body[data-theme="dark"] {
+  .header {
+    background-color: var(--bg-color);
+  }
+}
+
+body[data-theme="light"] {
+  .header {
+    background-color: white;
+  }
 }
 
 .header ul {

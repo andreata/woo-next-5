@@ -6,6 +6,7 @@
         <g-link class="color-cat" :to="node.uri">{{ node.name }} </g-link>
       </div>
 
+
   </div>
 </template>
 
