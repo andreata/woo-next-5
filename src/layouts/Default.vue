@@ -32,16 +32,21 @@
 
         <div class="header-element order-1">
           <NavBar />
+          <div class="contatti-header-desk ">
           <ToggleTheme /> 
+          </div>
           <!-- <g-image class="contatti-header" src="~/assets/images/icon/contatti.svg" alt="" width="200" /> -->
         </div>
-
-        <g-image class="contatti-header-mob order-3" src="~/assets/images/icon/domande.svg" alt="" width="200" />
+        <div class="contatti-header-mob order-3">
+          <ToggleTheme />
+        </div>
+        <!-- <g-image class="contatti-header-mob order-3" src="~/assets/images/icon/domande.svg" alt="" width="200" /> -->
       </div>
 
       <div class="header-box header-index">
-
+     
         <SearchWordPress /> 
+      
 
        <div class="flex-top">
           <a  class="snipcart-checkout button-vuoto">
@@ -199,7 +204,15 @@
     }
   
 }
-
+@media screen and (max-width: 768px) {
+.contatti-header-desk {
+    display: none !important;
+  }
+  
+}
+.contatti-header-desk, .contatti-header-mob {
+display: flex;
+}
 @media screen and (min-width: 768px) {
   .contatti-header-mob {
     display: none;
