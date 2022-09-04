@@ -677,14 +677,14 @@ export default {
 
         .title-home-mobile {
             margin-top: 80px;
-            font-size: 26px;
+            font-size: 25px;
             color: var(--title-color);
         }
 
         .p-home-mobile {
             color: var(--grey-body-color);
-            font-size: 23px;
-            line-height: 1.3;
+            font-size: 20px;
+        line-height: 1.2;
         }
     }
 
@@ -704,7 +704,7 @@ export default {
 }
  
  @media screen and (max-width: 768px) and (min-width: 320px) {
-     .VueCarousel-inner {
+     .bg-cielo .VueCarousel-inner {
          flex-basis: 230px !important;
      }
  }

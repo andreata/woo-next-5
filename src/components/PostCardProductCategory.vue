@@ -1,5 +1,5 @@
 <template>
-<g-link class="no-deco" :to="post.slug">
+<g-link class="no-deco" :to="post.uri">
   <div class="post-card  ">
       <div v-if="post.onSale" class="badge-sale">
       <p>In Offerta!</p>
@@ -18,14 +18,19 @@
       
       <h2 class="post-card__title" v-html="post.name" />
 
-      <div class="flex-price">   
-          <p v-if="post.salePrice" class="sale-regular">{{ post.salePrice }}</p>     
-        <p class="price-regular">{{ post.regularPrice }}</p>
-        
+      <div class="flex-price"> 
+          <div v-if="post.salePrice">
+            <p class="price-regular" >{{ post.regularPrice }}</p>     
+            <p class="sale-regular">{{ post.salePrice }}</p>
+          </div>  
+
+          <div v-if="!post.salePrice">
+            <p class="sale-regular">{{ post.regularPrice }}</p>     
+          </div>  
       </div>
    
    
-      <g-link class="post-card__link button-pieno" :to="post.slug">Leggi tutto</g-link> 
+      <g-link class="post-card__link button-pieno" :to="post.uri">Leggi tutto</g-link> 
 
 
     </div>
@@ -74,21 +79,29 @@ export default {
 }
 
 .flex-price {
+    > div {
     display: flex;
     align-items: baseline;
+    }
 }
-
 .price-regular {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 0;
-}
-.sale-regular {
+    
     margin-right: 10px;
     font-size: 17px;
     color: #9e9e9e;
     text-decoration: line-through;
     margin-bottom: 0;
+    @media screen and (max-width: 768px) {
+      font-size: 13px;
+    }
+}
+.sale-regular {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 0;
+     @media screen and (max-width: 768px) {
+      font-size: 14px;
+    }
 }
 .badge-sale {
     position: absolute;
@@ -216,7 +229,7 @@ padding: 7px 18px !important;
         max-width: 100%;
     }
     .post-card__title {
-        font-size: 20px;
+        font-size: 13px;
     }
     .post-card__link {
         padding: 4px 8px !important;

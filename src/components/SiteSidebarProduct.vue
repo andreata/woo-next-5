@@ -6,6 +6,11 @@
         <g-link class="color-cat" :to="node.uri">{{ node.name }} </g-link>
       </div>
 
+    <p class="title-sidebar title-sidebar-due">Tag</p>
+      <div v-for="{ node } in $static.productTags.edges" :key="node.slug">
+        <g-link class="color-cat" :to="node.uri">{{ node.name }} </g-link>
+      </div>
+
 
   </div>
 </template>
@@ -15,7 +20,17 @@
 
 
 query getCat {
-   productCategories(first: 10)  {
+   productCategories(first: 100)  {
+    edges {
+      node {
+        name
+        slug
+        uri
+      }
+    }
+  }
+
+  productTags(first: 100)  {
     edges {
       node {
         name
@@ -41,6 +56,9 @@ export default {
 </script>
 
 <style scoped>
+.title-sidebar-due {
+  margin-top: 40px;
+}
 .sticky-side {
     position: sticky;
     top: 60px;

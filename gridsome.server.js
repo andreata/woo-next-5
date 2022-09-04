@@ -178,20 +178,41 @@ module.exports = function (api) {
     api.createPages(async ({ graphql, createPage }) =>{
         
         const { data } = await graphql(`
-        query {
-            products(first: 200){
-                nodes{
-                    name
-                    slug
-                    id
+            query {
+                products(first: 200){
+                    nodes{
+                        ... on WordPress_SimpleProduct {
+                            name
+                            slug
+                            id
+                            uri
+                        }
+                        ... on WordPress_VariableProduct {
+                            name
+                            slug
+                            id
+                            uri
+                        }
+                        ... on WordPress_ExternalProduct {
+                            name
+                            slug
+                            id
+                            uri
+                        }
+                        ... on WordPress_GroupProduct {
+                            name
+                            slug
+                            id
+                            uri
+                        }
+                    }
                 }
             }
-        }
         `)    
 
         data.products.nodes.forEach(function(node, index){
             createPage({
-                path: `/${node.slug}`,
+                path: `/${node.uri}`,
                 component: './src/templates/WordPressProduct.vue',
                 context: {
                     id: node.id,
@@ -226,6 +247,39 @@ module.exports = function (api) {
             createPage({
                     path: `/${node.uri}`,
                     component: './src/templates/WordPressProductCategory.vue',
+                    context: {
+                        id: node.id,
+                        slug: node.slug,
+                        title: node.name
+                    }
+                })
+        })
+
+    })
+
+    api.createPages(async ({ graphql, createPage }) =>{
+        
+        const { data } = await graphql(`
+            query {
+                productTags(first: 200) {
+                    edges {
+                        node {
+                            name
+                            slug
+                            id
+                            uri
+                        }
+                    }
+                }       
+            }
+        `)    
+
+        data.productTags.edges.forEach(({ node }) => {
+   
+
+            createPage({
+                    path: `/${node.uri}`,
+                    component: './src/templates/WordPressProductTag.vue',
                     context: {
                         id: node.id,
                         slug: node.slug,

@@ -304,7 +304,7 @@
                 <p class="sal-3">{{ edge.node.regularPrice }}</p>
                 <p class="sal-3-sale">{{ edge.node.salePrice }}</p>
                 <p class="sal-4">Prezzo fisso</p>
-                <g-link :to="edge.node.slug" class="button button-pieno sal-5">DETTAGLIO PRODOTTO</g-link>
+                <g-link :to="edge.node.uri" class="button button-pieno sal-5">DETTAGLIO PRODOTTO</g-link>
 
               </slide> 
 
@@ -724,12 +724,13 @@ export default {
       grid-template-columns: 2fr 1fr;
       .title-home-mobile {
         margin-top: 80px;
-        font-size: 30px;
+        font-size: 25px;
         color: var(--title-color);
       }
       .p-home-mobile {
         color: var(--grey-body-color);
-        font-size: 24px;
+        font-size: 20px;
+        line-height: 1.2;
       }
   }
   .flex-homeland {
@@ -739,12 +740,12 @@ export default {
       margin-top: -15px;
       .h2-promo {
         
-        font-size: 20px;
+        font-size: 17px;
         text-align: left;
         font-weight: 800;
       }
       .h3-promo {
-        font-size: 17px;
+        font-size: 15px;
         text-align: left;
         font-weight: 800;
       }

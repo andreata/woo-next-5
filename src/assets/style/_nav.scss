@@ -40,16 +40,46 @@ body[data-theme="light"] {
   color: var(--title-color);
   font-size: 16px;
   display: block;
-  padding: 5px 10px;
+  padding: 5px 0px;
+  margin-left: 10px;
+  margin-right: 10px;
   text-decoration: none;
   text-transform: uppercase;
+  @media screen and (min-width: 768px) {
+    border-bottom: 1px solid transparent;
+    &.active:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 1px;
+        width: 100%;
+        background: var(--orang-color);
+       
+      }
+  }
 }
 
 .toggle-theme {
   float: right;
 }
 
-.header li a:hover,
+
+
+.header li a:after {
+  content: '';
+  display: block;
+  margin: auto;
+  height: 1px;
+  width: 0px;
+  background: transparent;
+  transition: width .5s ease, background-color .5s ease;
+}
+
+.header li a:hover:after {
+  width: 100%;
+  background: var(--orang-color);
+}
+
 .header .menu-btn:hover {
   background-color: #f4f4f4;
 }

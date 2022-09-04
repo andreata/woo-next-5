@@ -145,9 +145,12 @@ export default {
     position: absolute;
     top: 7px;
     left: 10px;
+    @media screen and (max-width: 768px) {
+       left: 20px;
+    }
 }
 .container-search {
-  position: relative;
+  
     margin-top: auto;
     margin-bottom: auto;
     .input-search {
@@ -163,15 +166,17 @@ export default {
         }
     }
     .result-search {
+      
         position: absolute;
         max-width: 300px;
         display: flex;
         flex-wrap: wrap;
+            border: 1px solid var(--orang-color);;
         a {
             background: var(--bg-color);
             display: block;
             padding: calc(var(--space) / 4) ;
-            font-size: 0.7rem;
+                font-size: 1.3em;
             min-width: 100%;
         }
     }

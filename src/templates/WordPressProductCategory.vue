@@ -40,8 +40,10 @@
         <h3 v-if="!productsFiltered.length">Nessun risultato.</h3>
         <div class="content-category">
             
-             <PostCardProductCategory :post="edge.node" v-for="(edge, index) in productsFiltered" :key="edge.node.id"
-          v-if="index >= 1" />
+            <PostCardProductCategory :post="edge.node" v-for="(edge, index) in productsFiltered" :key="edge.node.id" /> 
+
+         
+          
         </div>
           
 
@@ -93,25 +95,82 @@ query Categoryprod ($slug: ID!) {
     products(first: 50) {
       edges {
         node {
-          id
-          name
-          slug
-          onSale
-          image {
-            mediaItemUrl
-          }
+          
           ... on WordPress_SimpleProduct {
+                id
+                name
+                slug
+                onSale
+                image {
+                    mediaItemUrl
+                }
                 regularPrice
                 salePrice
                 price(format: RAW)
-                
+                uri
+                productCategories {
+                    nodes {
+                        name
+                        slug
+                    }
+                }
           }
-          productCategories {
-            nodes {
-              name
-              slug
+      
+            ... on WordPress_VariableProduct {
+                id
+                name
+                slug
+                onSale
+                image {
+                    mediaItemUrl
+                }
+                regularPrice
+                salePrice
+                price(format: RAW)
+                uri
+                productCategories {
+                    nodes {
+                        name
+                        slug
+                    }
+                }
             }
-          }
+            ... on WordPress_ExternalProduct {
+                id
+                name
+                slug
+                onSale
+                image {
+                    mediaItemUrl
+                }
+                regularPrice
+                salePrice
+                price(format: RAW)
+                uri
+                productCategories {
+                    nodes {
+                        name
+                        slug
+                    }
+                }
+            }
+            ... on WordPress_GroupProduct {
+                id
+                name
+                slug
+                onSale
+                image {
+                    mediaItemUrl
+                }
+                uri
+                productCategories {
+                    nodes {
+                        name
+                        slug
+                    }
+                }
+            }
+          
         }
       }
     }

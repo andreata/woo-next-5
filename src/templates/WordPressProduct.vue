@@ -47,20 +47,124 @@
                         </div>
                     <h1 class="title">{{ $page.product.name }}</h1>
                     <div v-html="$page.product.shortDescription"></div>
-                    <p class="price-regular">{{$page.product.regularPrice }}</p>
-                    <p class="price-sale">{{$page.product.salePrice }}</p>
+                    
+                    
+                    <div v-if="$page.product.stockStatus == 'IN_STOCK'">
+    
 
+                      
+                      <div class="quantity-element" v-if="$page.product.stockStatus == 'IN_STOCK' && ($page.product.stockQuantity)">
+                        <p>Quantità: </p>
+                        <select v-model="selected">
+                          <option v-for="n in $page.product.stockQuantity" :value="n">{{ n }}</option>
+                        </select>
+                      </div>
+
+                   
+
+
+                    </div>
+
+                    <div v-if="$page.product.stockStatus == 'OUT_OF_STOCK'">
+                      <p class="out-s"><span class="red-dot"></span>Non disponibile</p>
+                    </div>
+
+                    <div class="price-disposition" v-if="$page.product.salePrice">
+                        <p class="price-regular">{{ $page.product.regularPrice }}</p>     
+                        <p class="price-sale">{{ $page.product.salePrice }}</p>
+                    </div>  
+
+                    <div v-if="!$page.product.salePrice">
+                        <p class="price-sale">{{ $page.product.regularPrice }}</p>     
+                    </div>  
+
+                  <div v-if="$page.product.stockStatus == 'IN_STOCK' && $page.product.type == 'VARIABLE'">
+
+
+                        <div v-for="(node, index) in $page.product.attributes.nodes" :key="node.id">
+                            {{node.name}}
+                            <select v-model="selected[index]">
+                              <option v-for="n in node.options" :value="n">{{ n }}</option>
+                            </select>
+
+                          
+
+                        </div> 
+      
+
+                        <div v-for="node in $page.product.variations.nodes" :key="node.id">
+
+                          <div v-if="node.name.toLowerCase() == 'single - ' + selected[0] + ', ' + selected[1]">
+                          <!--  {{node.id}}
+                            {{node.price.replace("€", "")}}
+                            {{node.image.mediaItemUrl}}
+                            {{node.regularPrice}}
+                            {{node.link}} -->
+
+                            <div v-if="$page.product.stockStatus == 'IN_STOCK'">
+                              <a v-if="node.price"
+                              class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
+                              :data-item-id="node.id"
+                              :data-item-description="$page.product.shd"
+                              :data-item-image="node.image.mediaItemUrl"
+                              :data-item-price="node.price.replace('€', '').replace(',', '.')"
+                              :data-item-name="node.name"
+                              :data-item-url="node.link"
+                              
+                              >Aggiungi al carrello</a>
+                            </div>
+                          </div>
+                          
+
+                        </div> 
+
+                        
+
+                  </div>
+
+                  <!-- LAMORO QUI -->
+                    <!-- <div v-if="$page.product.variations">
+
+                        <div v-for="node in $page.product.nodes" :key="node.id">
+                                <p>{{ node.name }}</p>
+                            </div> 
+
+                        <p>{{$page.product.nodes.attributes.nodes.name}}</p>
+                    </div> -->
+                  <!-- LAMORO QUI -->
               
+                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && $page.product.type == 'SIMPLE' && ($page.product.stockQuantity)">
+                      <a v-if="$page.product.price"
+                      class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
+                      :data-item-id="$page.product.id"
+                      :data-item-description="$page.product.shd"
+                      :data-item-image="$page.product.image.mediaItemUrl"
+                      :data-item-price="$page.product.price"
+                      :data-item-name="$page.product.name"
+                      :data-item-url="$page.product.link"
+                      :data-item-quantity="selected"
+                      >Aggiungi al carrello</a>
+                    </div>
 
-                    <a v-if="$page.product.price"
-                    class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
-                    :data-item-id="$page.product.id"
-                    :data-item-description="$page.product.shd"
-                    :data-item-image="$page.product.image.mediaItemUrl"
-                    :data-item-price="$page.product.price"
-                    :data-item-name="$page.product.name"
-                    :data-item-url="$page.product.link"
-                    >Aggiungi al carrello</a>
+                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && $page.product.type == 'SIMPLE' && !($page.product.stockQuantity)">
+                      <a v-if="$page.product.price"
+                      class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
+                      :data-item-id="$page.product.id"
+                      :data-item-description="$page.product.shd"
+                      :data-item-image="$page.product.image.mediaItemUrl"
+                      :data-item-price="$page.product.price"
+                      :data-item-name="$page.product.name"
+                      :data-item-url="$page.product.link"
+                      >Aggiungi al carrello</a>
+                    </div>
+
+                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && ($page.product.stockQuantity)">
+                      <p class="in-s"><span class="green-dot"></span>Disponibilità immediata ({{$page.product.stockQuantity}})</p>
+                    </div>
+
+                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && !($page.product.stockQuantity)">
+                      <p class="in-s"><span class="green-dot"></span>Disponibilità immediata</p>
+                    </div>
 
                     <div class="rassicurazioni">
                         <div>
@@ -165,76 +269,174 @@
 query Product ($slug: ID!) {
 
   product(idType: SLUG, id: $slug)  {
+     
+    type
     ... on WordPress_SimpleProduct {
-     regularPrice
-     salePrice
-     price(format: RAW)
-     seo {
-        breadcrumbs {
-            text
-            url
-        }
-        schema {
-            raw
-        }
-        canonical
-        metaDesc
-        metaKeywords
-        title
-        twitterDescription
-        cornerstone
-        focuskw
-        metaRobotsNofollow
-        metaRobotsNoindex
-        opengraphDescription
-        opengraphImage {
-            mediaItemUrl
-        }
-     }
-    }
-    productCategories {
-      nodes {
         name
+        id
         slug
-      }
+        link
+        shortDescription
+        shd: shortDescription(format: RAW)
+        description
+        onSale
+        totalSales
+        regularPrice
+        salePrice
+        stockQuantity
+        stockStatus
+        price(format: RAW)
+        seo {
+            canonical
+            metaDesc
+            metaKeywords
+            title
+            twitterDescription
+            cornerstone
+            focuskw
+            metaRobotsNofollow
+            metaRobotsNoindex
+            opengraphDescription
+            breadcrumbs {
+                text
+                url
+            }
+            schema {
+                raw
+            }
+            opengraphImage {
+                mediaItemUrl
+            }
+        }
     }
-    name
-    id
-    slug
-    link
+
+    productCategories {
+        nodes {
+            name
+            slug
+        }
+    }
+    
     image {
-      mediaItemUrl
+        mediaItemUrl
     }
     galleryImages {
-      nodes {
-        id
-        mediaItemUrl
-      }
-    }
-    shortDescription
-    shd: shortDescription(format: RAW)
-    description
-    onSale
-    totalSales
-    related(first: 5) {
-      edges {
-        node {
-          id
-          name
-          slug
-          onSale
-          image {
+        nodes {
+            id
             mediaItemUrl
-          }
-          
-          ... on WordPress_SimpleProduct {
+        }
+    }
+    
+    related(first: 5) {
+        edges {
+            node {
             id
             name
+            slug
+            onSale
+            image {
+                mediaItemUrl
+            }
+            
+            ... on WordPress_SimpleProduct {
+                id
+                name
+                salePrice
+                regularPrice
+                uri
+            }
+            ... on WordPress_VariableProduct {
+                    uri
+                }
+                ... on WordPress_ExternalProduct {
+                    uri
+                }
+                ... on WordPress_GroupProduct {
+                    uri
+                }
+            }
+        }
+    }
+
+
+    ... on WordPress_VariableProduct {
+        name
+        id
+        slug
+        link
+        shortDescription
+        shd: shortDescription(format: RAW)
+        description
+        onSale
+        totalSales
+        
+        salePrice
+        stockQuantity
+        stockStatus
+        price(format: RAW)
+        variations {
+          nodes {
+            id
+            name
+            price
             salePrice
             regularPrice
+            stockQuantity
+            link
+            description
+            image {
+              mediaItemUrl
+            }
           }
         }
-      }
+        attributes {
+          nodes {
+            variation
+            name
+            id
+            options
+          }
+        }
+        seo {
+            breadcrumbs {
+                text
+                url
+            }
+            schema {
+                raw
+            }
+            canonical
+            metaDesc
+            metaKeywords
+            title
+            twitterDescription
+            cornerstone
+            focuskw
+            metaRobotsNofollow
+            metaRobotsNoindex
+            opengraphDescription
+            opengraphImage {
+                mediaItemUrl
+            }
+        }
+        variations {
+        
+            nodes {
+                id
+                name
+                price
+                regularPrice
+                salePrice
+                    
+                attributes {
+                    nodes {
+                        id
+                        name
+                        value
+                    }
+                }
+            }
+        }
     }
     
    
@@ -253,8 +455,17 @@ import PostCardProductUpsell from '~/components/PostCardProductUpsell.vue'
 
 export default {
   
- 
-  
+  data() {
+    return {
+      selected: 1,
+      selected: [{
+        1: '',
+        2: '',
+      }],
+    
+     
+    }
+  },
   components: {
       PostCardProductUpsell,
       
@@ -269,6 +480,9 @@ export default {
         .catch(),
   },
   methods: {
+    upper(e) {
+        e.target.value = e.target.value.toUpperCase()
+    },
     getImageUrl(url) {
       // circumvents webpack issue with calling require in html
       const imageFolderContext = require.context("@/assets/ghosts/big", false);
@@ -286,6 +500,51 @@ export default {
 
 <style lang="scss">
 
+.quantity-element {
+  display: flex;
+  margin-top: 10px;
+  p {
+    margin-bottom: 0;
+    margin-right: 5px;
+  }
+}
+
+.out-s {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+.red-dot {
+  margin-right: 5px;
+  border-radius: 50%;
+  background: red;
+  width: 7px;
+  height: 7px;
+  display: block;
+}
+
+.in-s {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+.green-dot {
+  margin-right: 5px;
+  border-radius: 50%;
+  background: greenyellow;
+  width: 7px;
+  height: 7px;
+  display: block;
+}
+
+.price-disposition {
+  display: flex;
+  align-items: baseline;
+  .price-regular {
+    margin-right: 10px;
+  }
+}
+
 .rassicurazioni {
     > div {
         display: flex;
@@ -302,6 +561,9 @@ export default {
 
 .container-salmone {
     padding: 40px;
+    @media screen and (max-width: 768px) {
+      padding: 15px;
+    }
 }
 
 .title {
@@ -355,13 +617,17 @@ margin-top: 60px;
 }
 
 .price-regular {
-font-size: 35px;
-font-weight: 700;
+
+font-size: 25px;
+text-decoration: line-through;
 margin-bottom: 0;
+ @media screen and (max-width: 768px) {
+      font-size: 13px;
+    }
 }
 .price-sale {
-    font-size: 25px;
-text-decoration: line-through;
+   font-size: 35px;
+font-weight: 700;
 margin-bottom: 0;
 }
 .product-grid {
@@ -382,6 +648,12 @@ margin-bottom: 0;
 }
 
 @media only screen and (max-width: 768px) {
+  .VueCarousel-dot-container {
+    margin-top: 0 !important;
+    .VueCarousel-dot {
+      margin-top: 10px !important;
+    }
+  }
     .container-salmone {
       padding-top: 30px;
       padding-bottom: 30px;
