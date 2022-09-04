@@ -20,8 +20,14 @@
 
       <div class="flex-price"> 
           <div v-if="post.salePrice">
-            <p class="price-regular" >{{ post.regularPrice }}</p>     
-            <p class="sale-regular">{{ post.salePrice }}</p>
+            <span v-if="post.type == 'VARIABLE'"">
+            <p class="sale-regular" >A partire da: {{ post.regularPrice.slice(0,6)  }}</p> 
+            </span>
+            <span v-if="post.type != 'VARIABLE'"">
+              <p class="price-regular" >{{ post.regularPrice}}</p>
+              <p class="sale-regular">{{ post.salePrice }}</p>
+            </span>     
+            
           </div>  
 
           <div v-if="!post.salePrice">
@@ -55,6 +61,8 @@ export default {
     }
   },
 
+ 
+
 }
 </script>
 
@@ -79,7 +87,7 @@ export default {
 }
 
 .flex-price {
-    > div {
+    > div span {
     display: flex;
     align-items: baseline;
     }

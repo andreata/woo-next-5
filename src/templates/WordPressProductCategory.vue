@@ -40,7 +40,7 @@
         <h3 v-if="!productsFiltered.length">Nessun risultato.</h3>
         <div class="content-category">
             
-            <PostCardProductCategory :post="edge.node" v-for="(edge, index) in productsFiltered" :key="edge.node.id" /> 
+            <PostCardProductCategory :post="edge.node" v-for="(edge) in productsFiltered" :key="edge.node.id" /> 
 
          
           
@@ -95,7 +95,7 @@ query Categoryprod ($slug: ID!) {
     products(first: 50) {
       edges {
         node {
-          
+          type
           ... on WordPress_SimpleProduct {
                 id
                 name
@@ -212,15 +212,19 @@ export default {
     }
   },
   computed: {
+
+   
       
       productsFiltered() {
 
           return this.$page.productCategory.products.edges.filter(item => {  
 
-              
+             var priceBase = item.node.price;
+             var priceFour = priceBase.slice(0,4);
+             var priceProd = Number(priceFour); 
               
               //return (item.node.productCategories.nodes.filter(cat => cat.slug == this.filter['category']).length > 0)
-              return (Number(item.node.price) >= this.filter['min_price'] && Number(item.node.price) <= this.filter['max_price'])
+              return (priceProd >= this.filter['min_price'] && priceProd <= this.filter['max_price'])
            
           })
       }

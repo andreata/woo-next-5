@@ -81,41 +81,66 @@
                   <div v-if="$page.product.stockStatus == 'IN_STOCK' && $page.product.type == 'VARIABLE'">
 
 
-                        <div v-for="(node, index) in $page.product.attributes.nodes" :key="node.id">
+                        <div class="radio-variation" v-for="(node, index) in $page.product.attributes.nodes" :key="node.id" >
                             {{node.name}}
-                            <select v-model="selected[index]">
+
+                            <label class="label-variation" v-for="n in node.options"  :for="n" >
+                              <input type="radio" :id="n" :value="n" v-model="picked[index]" />
+                            {{n}}</label>
+
+                           <!-- <select v-model="selected[index]">
                               <option v-for="n in node.options" :value="n">{{ n }}</option>
-                            </select>
-
-                          
-
+                            </select>  -->
                         </div> 
       
 
                         <div v-for="node in $page.product.variations.nodes" :key="node.id">
 
-                          <div v-if="node.name.toLowerCase() == 'single - ' + selected[0] + ', ' + selected[1]">
-                          <!--  {{node.id}}
-                            {{node.price.replace("€", "")}}
-                            {{node.image.mediaItemUrl}}
-                            {{node.regularPrice}}
-                            {{node.link}} -->
-
-                            <div v-if="$page.product.stockStatus == 'IN_STOCK'">
-                              <a v-if="node.price"
-                              class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
-                              :data-item-id="node.id"
-                              :data-item-description="$page.product.shd"
-                              :data-item-image="node.image.mediaItemUrl"
-                              :data-item-price="node.price.replace('€', '').replace(',', '.')"
-                              :data-item-name="node.name"
-                              :data-item-url="node.link"
-                              
-                              >Aggiungi al carrello</a>
-                            </div>
-                          </div>
                           
 
+                          <div v-if="node.name.toLowerCase() == $page.product.name.toLowerCase() + ' - ' + picked[0] + ', ' + picked[1]">
+                            <span>Combinazione scelta: {{picked[0]}} - {{picked[1]}}</span><br>
+                           <strong><span class="through">{{node.regularPrice}}</span> {{node.salePrice}}</strong>
+                         
+                            <div v-if="!(node.stockQuantity)">
+                              <div v-if="$page.product.stockStatus == 'IN_STOCK'">
+                                <a v-if="node.price"
+                                class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
+                                :data-item-id="node.id"
+                                :data-item-description="$page.product.shd"
+                                :data-item-image="node.image.mediaItemUrl"
+                                :data-item-price="node.price.replace('€', '').replace(',', '.')"
+                                :data-item-name="node.name"
+                                :data-item-url="node.link"
+                                
+                                >Aggiungi al carrello</a>
+                              </div>
+                            </div>
+
+                            <div v-if="(node.stockQuantity)">
+                              <div class="quantity-element">
+                                <p>Quantità: </p>
+                                <select v-model="selectedVariation">
+                                  <option v-for="n in node.stockQuantity" :value="n">{{ n }}</option>
+                                </select>
+                              </div>
+
+                              <div v-if="$page.product.stockStatus == 'IN_STOCK'">
+                                <a v-if="node.price"
+                                class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
+                                :data-item-id="node.id"
+                                :data-item-description="$page.product.shd"
+                                :data-item-image="node.image.mediaItemUrl"
+                                :data-item-price="node.price.replace('€', '').replace(',', '.')"
+                                :data-item-name="node.name"
+                                :data-item-url="node.link"
+                                :data-item-quantity="selectedVariation"
+                                >Aggiungi al carrello</a>
+                              </div>
+                            </div>
+
+                          </div>
+                          
                         </div> 
 
                         
@@ -255,7 +280,7 @@
             </div>
         </div>
 
-        
+         </div>
     </div>
   </Layout>
 
@@ -458,10 +483,13 @@ export default {
   data() {
     return {
       selected: 1,
+      selectedVariation: 1,
       selected: [{
         1: '',
         2: '',
       }],
+      picked: [],
+      isActive: false,
     
      
     }
@@ -488,6 +516,8 @@ export default {
       const imageFolderContext = require.context("@/assets/ghosts/big", false);
       return imageFolderContext("./" + url);
     },
+
+    
   },
  
 
@@ -499,7 +529,46 @@ export default {
 </script>
 
 <style lang="scss">
+input[type="radio"] {
+  margin-left: 0;
+}
+input[type="radio"]:checked:before {
+        content: "";
+    display: block;
+    position: relative;
+    top: 0px;
+    left: -1px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--orang-color);
+    border: none;
+}
 
+
+  .radio-variation {
+    margin-bottom: 7px;
+  }
+
+  .hidden {
+    opacity: 0;
+    width:0;
+    margin: 0;
+  }
+  .label-variation {
+    margin: 4px;
+    padding: 2px 5px;
+    font-size: 15px;
+    text-transform: uppercase;
+    border: 1.5px solid var(--grey-body-color);
+    &:hover {
+      cursor: pointer;
+      cursor: hand;
+    }
+  }
+.through {
+  text-decoration: line-through;
+}
 .quantity-element {
   display: flex;
   margin-top: 10px;
