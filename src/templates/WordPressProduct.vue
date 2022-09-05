@@ -84,9 +84,11 @@
                         <div class="radio-variation" v-for="(node, index) in $page.product.attributes.nodes" :key="node.id" >
                             {{node.name}}
 
-                            <label class="label-variation" v-for="n in node.options"  :for="n" >
-                              <input type="radio" :id="n" :value="n" v-model="picked[index]" />
-                            {{n}}</label>
+                            <label class="label-variation" v-for="variazione in node.options"  :for="variazione" >
+                              <input type="radio" :id="variazione" :value="variazione" v-model="picked[index]" />
+                            {{variazione}}</label>
+
+                      
 
                            <!-- <select v-model="selected[index]">
                               <option v-for="n in node.options" :value="n">{{ n }}</option>
@@ -96,8 +98,7 @@
 
                         <div v-for="node in $page.product.variations.nodes" :key="node.id">
 
-                          
-
+                        
                           <div v-if="node.name.toLowerCase() == $page.product.name.toLowerCase() + ' - ' + picked[0] + ', ' + picked[1]">
                             <span>Combinazione scelta: {{picked[0]}} - {{picked[1]}}</span><br>
                            <strong><span class="through">{{node.regularPrice}}</span> {{node.salePrice}}</strong>
@@ -184,7 +185,8 @@
                     </div>
 
                     <div v-if="$page.product.stockStatus == 'IN_STOCK' && ($page.product.stockQuantity)">
-                      <p class="in-s"><span class="green-dot"></span>Disponibilità immediata ({{$page.product.stockQuantity}})</p>
+                      <p class="in-s"><span class="green-dot"></span>Disponibilità immediata culo ({{quantityVal}})</p> 
+                      
                     </div>
 
                     <div v-if="$page.product.stockStatus == 'IN_STOCK' && !($page.product.stockQuantity)">
@@ -294,8 +296,9 @@
 query Product ($slug: ID!) {
 
   product(idType: SLUG, id: $slug)  {
-     
+    slug
     type
+    id
     ... on WordPress_SimpleProduct {
         name
         id
@@ -477,6 +480,7 @@ query Product ($slug: ID!) {
 
 import VueDisqus from 'vue-disqus'
 import PostCardProductUpsell from '~/components/PostCardProductUpsell.vue'
+import { GraphQLClient } from 'graphql-request';
 
 export default {
   
@@ -488,14 +492,18 @@ export default {
         1: '',
         2: '',
       }],
-      picked: [],
+      picked: [], 
       isActive: false,
-    
+      quantityVal: '',
+     
+      
      
     }
   },
   components: {
+      GraphQLClient,
       PostCardProductUpsell,
+     
       
       VueDisqus,
     Carousel: () =>
@@ -516,7 +524,16 @@ export default {
       const imageFolderContext = require.context("@/assets/ghosts/big", false);
       return imageFolderContext("./" + url);
     },
+  },
+  async mounted() {
+    const slug = this.$page.product.slug; 
+    const client = new GraphQLClient('https://andreat143.sg-host.com/graphql');
+    const quantityValueObj = await client.request('{ product(idType: SLUG, id:"'+slug+'") { ... on SimpleProduct {stockQuantity} } }');
 
+    for (let value of Object.values(quantityValueObj)) {
+      this.quantityVal = value['stockQuantity'];
+      
+    }
     
   },
  

@@ -17,6 +17,7 @@
     "flexsearch": "^0.6.32",
     "fontsource-montserrat": "^3.0.9",
     "gh-pages": "^4.0.0",
+    "graphql-request": "^5.0.0",
     "gridsome": "^0.7.0",
     "gridsome-plugin-flexsearch": "^1.0.5",
     "gridsome-plugin-gtm": "^0.1.1",
