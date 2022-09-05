@@ -53,10 +53,10 @@
     
 
                       
-                      <div class="quantity-element" v-if="$page.product.stockStatus == 'IN_STOCK' && ($page.product.stockQuantity)">
+                      <div class="quantity-element" v-if="$page.product.stockStatus == 'IN_STOCK' && (quantityVal)">
                         <p>Quantità: </p>
                         <select v-model="selected">
-                          <option v-for="n in $page.product.stockQuantity" :value="n">{{ n }}</option>
+                          <option v-for="n in quantityVal" :value="n">{{ n }}</option>
                         </select>
                       </div>
 
@@ -94,12 +94,17 @@
                               <option v-for="n in node.options" :value="n">{{ n }}</option>
                             </select>  -->
                         </div> 
+
       
+                 
+                     
 
                         <div v-for="node in $page.product.variations.nodes" :key="node.id">
 
+                         
                         
                           <div v-if="node.name.toLowerCase() == $page.product.name.toLowerCase() + ' - ' + picked[0] + ', ' + picked[1]">
+                            
                             <span>Combinazione scelta: {{picked[0]}} - {{picked[1]}}</span><br>
                            <strong><span class="through">{{node.regularPrice}}</span> {{node.salePrice}}</strong>
                          
@@ -118,25 +123,34 @@
                               </div>
                             </div>
 
-                            <div v-if="(node.stockQuantity)">
-                              <div class="quantity-element">
-                                <p>Quantità: </p>
-                                <select v-model="selectedVariation">
-                                  <option v-for="n in node.stockQuantity" :value="n">{{ n }}</option>
-                                </select>
-                              </div>
+                            
 
-                              <div v-if="$page.product.stockStatus == 'IN_STOCK'">
-                                <a v-if="node.price"
-                                class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
-                                :data-item-id="node.id"
-                                :data-item-description="$page.product.shd"
-                                :data-item-image="node.image.mediaItemUrl"
-                                :data-item-price="node.price.replace('€', '').replace(',', '.')"
-                                :data-item-name="node.name"
-                                :data-item-url="node.link"
-                                :data-item-quantity="selectedVariation"
-                                >Aggiungi al carrello</a>
+                            <div v-if="(node.stockQuantity)">
+
+                              <div v-for="(item) in quantityValVariation">
+                                <div v-if="item.name.toLowerCase() == $page.product.name.toLowerCase() + ' - ' + picked[0] + ', ' + picked[1]">
+                            
+                            
+                                    <div class="quantity-element">
+                                      <p>Quantità: </p>
+                                      <select v-model="selectedVariation">
+                                        <option v-for="n in item.stockQuantity" :value="n">{{ n }}</option>
+                                      </select>
+                                    </div>
+
+                                    <div v-if="$page.product.stockStatus == 'IN_STOCK'">
+                                      <a v-if="node.price"
+                                      class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
+                                      :data-item-id="node.id"
+                                      :data-item-description="$page.product.shd"
+                                      :data-item-image="node.image.mediaItemUrl"
+                                      :data-item-price="node.price.replace('€', '').replace(',', '.')"
+                                      :data-item-name="node.name"
+                                      :data-item-url="node.link"
+                                      :data-item-quantity="selectedVariation"
+                                      >Aggiungi al carrello</a>
+                                    </div>
+                                  </div>
                               </div>
                             </div>
 
@@ -159,7 +173,7 @@
                     </div> -->
                   <!-- LAMORO QUI -->
               
-                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && $page.product.type == 'SIMPLE' && ($page.product.stockQuantity)">
+                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && $page.product.type == 'SIMPLE' && (quantityVal)">
                       <a v-if="$page.product.price"
                       class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
                       :data-item-id="$page.product.id"
@@ -172,7 +186,7 @@
                       >Aggiungi al carrello</a>
                     </div>
 
-                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && $page.product.type == 'SIMPLE' && !($page.product.stockQuantity)">
+                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && $page.product.type == 'SIMPLE' && !(quantityVal)">
                       <a v-if="$page.product.price"
                       class="cta-button-theme cta-button product-layout snipcart-add-item button-pieno"
                       :data-item-id="$page.product.id"
@@ -184,12 +198,12 @@
                       >Aggiungi al carrello</a>
                     </div>
 
-                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && ($page.product.stockQuantity)">
+                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && (quantityVal)">
                       <p class="in-s"><span class="green-dot"></span>Disponibilità immediata culo ({{quantityVal}})</p> 
                       
                     </div>
 
-                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && !($page.product.stockQuantity)">
+                    <div v-if="$page.product.stockStatus == 'IN_STOCK' && !(quantityVal)">
                       <p class="in-s"><span class="green-dot"></span>Disponibilità immediata</p>
                     </div>
 
@@ -495,6 +509,9 @@ export default {
       picked: [], 
       isActive: false,
       quantityVal: '',
+      VariationQty: '',
+      nameVariation: [],
+      quantityValVariation: '',
      
       
      
@@ -528,10 +545,26 @@ export default {
   async mounted() {
     const slug = this.$page.product.slug; 
     const client = new GraphQLClient('https://andreat143.sg-host.com/graphql');
-    const quantityValueObj = await client.request('{ product(idType: SLUG, id:"'+slug+'") { ... on SimpleProduct {stockQuantity} } }');
+    const quantityValueObj = await client.request('{ product(idType: SLUG, id:"'+slug+'") { ... on SimpleProduct {stockQuantity} ... on VariableProduct {variations {nodes {stockQuantity name}}} type } }');
 
     for (let value of Object.values(quantityValueObj)) {
-      this.quantityVal = value['stockQuantity'];
+      const typeprod = value['type'];
+      if (typeprod == 'VARIABLE') {
+
+        const quantityValVariation = value['variations']['nodes']; 
+        this.quantityValVariation = value['variations']['nodes']; 
+        /* this.quantityValVariation = value['stockQuantity']; */
+          
+        /* quantityVal.forEach(function(quantityVal) {
+          const VariationQty = quantityVal['stockQuantity'];
+          const nameVariation = quantityVal['name'];
+          this.nameVariation = quantityVal['name']; 
+          this.VariationQty = quantityVal['stockQuantity']; 
+        }); */
+
+      } else if (typeprod == 'SIMPLE') {
+        this.quantityVal = value['stockQuantity'];
+      }
       
     }
     
