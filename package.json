@@ -25,6 +25,7 @@
     "postcss": "^7.0.35",
     "remark-images": "^2.0.0",
     "request": "^2.88.2",
+    "sass": "^1.56.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
     "vue-carousel": "^0.18.0",
     "vue-cookie-accept-decline": "^5.4.0",
@@ -33,10 +34,9 @@
     "vue-progressive-image": "^3.2.0"
   },
   "devDependencies": {
-    "node-sass": "^5.0.0",
     "postcss-import": "^14.0.0",
     "postcss-preset-env": "^6.7.0",
-    "sass-loader": "^10.1.0"
+    "sass-loader": "^10.4.1"
   },
   "predeploy": "npm run build",
   "deploy": "gh-pages -d dist"
